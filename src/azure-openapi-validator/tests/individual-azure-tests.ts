@@ -13,6 +13,8 @@ import {
 } from './utilities/tests-helper';
 import { MergeStates, OpenApiTypes } from '../rule';
 import { ControlCharactersAreNotAllowed } from '../rules/ControlCharactersAreNotAllowed';
+import { PostOperationIdContainsUrlVerb } from '../rules/PostOperationIdContainsUrlVerb';
+import { LicenseHeaderMustNotBeSpecified } from '../rules/LicenseHeaderMustNotBeSpecified';
 
 @suite class IndividualAzureTests {
   @test async "control characters not allowed test"() {
@@ -20,4 +22,16 @@ import { ControlCharactersAreNotAllowed } from '../rules/ControlCharactersAreNot
     const messages: Message[] = await collectTestMessagesFromValidator(fileName, OpenApiTypes.arm, MergeStates.individual);
     assertValidationRuleCount(messages, ControlCharactersAreNotAllowed, 2);
   }
+
+  @test async "post operation id must contain Url verb"() {
+    const fileName = 'PostOperationIdWithoutUrlVerb.json';
+    const messages: Message[] = await collectTestMessagesFromValidator(fileName, OpenApiTypes.arm, MergeStates.individual);
+    assertValidationRuleCount(messages, PostOperationIdContainsUrlVerb, 1);
+  }
+  @test async "info section with x-ms-code-generation-settings must not contain a header"() {
+    const fileName = 'InfoWithLicenseHeader.json';
+    const messages: Message[] = await collectTestMessagesFromValidator(fileName, OpenApiTypes.arm, MergeStates.individual);
+    assertValidationRuleCount(messages, LicenseHeaderMustNotBeSpecified, 1);
+  }
+
 }
