@@ -13,8 +13,11 @@ require("./rules/ControlCharactersAreNotAllowed");
 require("./rules/ArraySchemaMustHaveItems");
 require("./rules/PostOperationIdContainsUrlVerb");
 require("./rules/LicenseHeaderMustNotBeSpecified");
+require("./rules/NestedProperties");
 
-export function run(document: string, openapiDefinition: any, sendMessage: (m: Message) => void, openapiType: OpenApiTypes, mergeState: MergeStates) {
+export function run(
+  document: string, openapiDefinition: any, sendMessage: (m: Message) => void, openapiType: OpenApiTypes, mergeState: MergeStates) {
+
   const rulesToRun = rules.filter(rule => rule.mergeState === mergeState && (rule.openapiType & openapiType));
   for (const rule of rulesToRun) {
     for (const section of nodes(openapiDefinition, rule.appliesTo_JsonQuery || "$")) {

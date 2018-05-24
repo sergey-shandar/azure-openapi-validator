@@ -48,18 +48,17 @@ This extension runs the validation on two threads:
 
 For debugging both composed and individual merge state at the same time
 ```
-autorest input/file --validation --azure-validator --use=path/to/your/repo/sr
-c/dotnet/AutoRest --azure-validator.debugger 
+autorest input/file --validation --azure-validator --use=path/to/your/repo/src/dotnet/AutoRest --azure-validator.debugger
 ```
 For debugging composed merge state
 ```
 autorest input/file --validation --azure-validator --use=path/to/your/repo/sr
-c/dotnet/AutoRest --azure-validator.composed-debugger 
+c/dotnet/AutoRest --azure-validator.composed-debugger
 ```
 For debugging individual merge state
 ```
 autorest --input-file=path/to/swagger --validation --azure-validator --use=path/to/your/repo/sr
-c/dotnet/AutoRest --azure-validator.individual-debugger 
+c/dotnet/AutoRest --azure-validator.individual-debugger
 ```
 #### How to debug the typescript repo
 Temporarily change the start script in `src/typescript/package.json` to `"start": "node --inspect-brk ./index.js"`.
